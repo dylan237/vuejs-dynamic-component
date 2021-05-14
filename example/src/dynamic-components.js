@@ -1,7 +1,7 @@
 import {
   createDynamicComp,
   deleteDynamicComp
-} from "../../dist/index";
+} from "vuejs-dynamic-component";
 import Popup from "@/components/Popup";
 
 function createPopup({ attrs, ...args }) {
