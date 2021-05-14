@@ -1,0 +1,59 @@
+{
+  "name": "vuejs-dynamic-component",
+  "version": "1.0.0",
+  "description": "Make components dynamically in Vue, It is suitable for encapsulating your own non-ermanent components such as dialog and toast.",
+  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "module": "dist/index.modern.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "microbundle watch",
+    "build": "microbundle",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "commit": "git add . && git-cz",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "postversion": "git push --follow-tags"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "vue",
+    "dynamic-component",
+    "dialog"
+  ],
+  "author": "dylan237 <dylan.liu237@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@ls-lint/ls-lint": "^1.9.2",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "commitizen": "^4.2.4",
+    "commitlint-config-cz": "^0.13.2",
+    "conventional-changelog-cli": "^2.1.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^6.3.0",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-import": "^2.23.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "microbundle": "^0.13.0",
+    "prettier": "^2.3.0"
+  }
+}

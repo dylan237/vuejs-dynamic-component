@@ -1,0 +1,10 @@
+ls:
+  src:
+    .dir: camelCase
+    .js: regex:index | camelCase
+    .ts: regex:index | camelCase
+ignore:
+  - .git 
+  - node_modules
+  - .babelrc.js
+  - .eslintrc.js

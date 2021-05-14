@@ -1,0 +1,9 @@
+.eslintrc.js
+node_modules*
+dist
+*.json
+.gitignore
+*.md
+*.log
+*.lock
+/example
