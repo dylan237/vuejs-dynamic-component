@@ -1,5 +1,10 @@
 import Vue from 'vue'
 
+enum Child {
+  APPEND = 'append-child',
+  REMOVE = 'remove-child',
+}
+
 Vue.prototype.$bus = new Vue()
 
 const container = {
@@ -10,7 +15,7 @@ const container = {
     }
   },
   created() {
-    Vue.prototype.$bus.$on('append-child', (compInstance, { attrs, on, ...args }) => {
+    Vue.prototype.$bus.$on(Child.APPEND, (compInstance, { attrs, on, ...args }) => {
       this.childComp.push({
         compInstance,
         attrs,
@@ -18,7 +23,7 @@ const container = {
         ...args,
       })
     })
-    Vue.prototype.$bus.$on('delete-child', compInstance => {
+    Vue.prototype.$bus.$on(Child.REMOVE, compInstance => {
       this.childComp = this.childComp.filter(child => child.compInstance !== compInstance)
     })
   },
@@ -51,7 +56,7 @@ document.body.appendChild(instance.$el)
 
 function createDynamicComp(component, { attrs, on, ...args }) {
   const compInstance = Vue.extend(component)
-  Vue.prototype.$bus.$emit('append-child', compInstance, {
+  Vue.prototype.$bus.$emit(Child.APPEND, compInstance, {
     attrs,
     on,
     ...args,
@@ -60,7 +65,7 @@ function createDynamicComp(component, { attrs, on, ...args }) {
 }
 
 function deleteDynamicComp(compInstance) {
-  Vue.prototype.$bus.$emit('delete-child', compInstance)
+  Vue.prototype.$bus.$emit(Child.REMOVE, compInstance)
 }
 
 export { createDynamicComp, deleteDynamicComp }
