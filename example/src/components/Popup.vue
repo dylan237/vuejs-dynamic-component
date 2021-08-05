@@ -27,9 +27,7 @@ export default {
     return h("div", { class: "mask" }, [
       h("div", { class: "popup" }, [
         h("h1", this.title),
-        this.$scopedSlots.default()
-          ? this.$scopedSlots.default(this.$attrs)
-          : h("p", this.content),
+        this.$scopedSlots.default(this.$attrs) || h("p", this.content),
         h(
           "button",
           {

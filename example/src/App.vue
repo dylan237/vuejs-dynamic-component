@@ -21,7 +21,8 @@ export default {
       this.$popup({
         attrs: this.popupData,
         contentSlot: [PopupContent],
-      }).then(({ confirm, data, unmount }) => {
+      })
+      .then(({ confirm, data, unmount }) => {
         if (confirm) {
           console.log("on confirm");
           console.log("data----", data);
