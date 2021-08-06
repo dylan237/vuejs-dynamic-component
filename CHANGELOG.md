@@ -1,3 +1,12 @@
+# [3.1.0](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.0.1...v3.1.0) (2021-08-06)
+
+
+### Features
+
+* singleton ([0007bd1](https://github.com/dylan237/vuejs-dynamic-component/commit/0007bd16565fc7fa203e6277d4bbee330632d9e8))
+
+
+
 ## [3.0.1](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.0.0...v3.0.1) (2021-08-06)
 
 ### Features
