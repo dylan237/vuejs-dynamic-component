@@ -1,24 +1,23 @@
-import _Vue, { PluginObject, Component, EventType } from './interface'
+import { VueType, PluginObject, Component, ComponentConfig, EventType } from './interface'
 
-class VueDynamicComponent implements PluginObject<Component> {
-  private V: _Vue
+class VueDynamicComponent implements PluginObject<Component, any> {
+  private V: VueType
 
-  private components: Component
+  components: Component
 
-  constructor() {
+  constructor(components: Component) {
     this.V = null
-    this.components = {}
+    this.components = components
   }
 
-  public install(Vue, components) {
+  public install(Vue: VueType): void {
     this.V = Vue
-    this.components = components
     this.V.prototype.$bus = new Vue()
     this.containerInit(this.V)
     this.childComponentsRegister()
   }
 
-  private containerInit(V) {
+  private containerInit(V: VueType): void {
     const container = {
       name: 'dynamic-container',
       data() {
@@ -67,7 +66,7 @@ class VueDynamicComponent implements PluginObject<Component> {
     document.body.appendChild(instance.$el)
   }
 
-  private createDynamicComp(component, { attrs, on, ...args }) {
+  private createDynamicComp(component: VueType, { attrs, on, ...args }: ComponentConfig): VueType {
     const compInstance = this.V.extend(component)
     this.V.prototype.$bus.$emit(EventType.APPEND, compInstance, {
       attrs,
@@ -77,7 +76,7 @@ class VueDynamicComponent implements PluginObject<Component> {
     return compInstance
   }
 
-  private deleteDynamicComp(compInstance) {
+  private deleteDynamicComp(compInstance: VueType) {
     this.V.prototype.$bus.$emit(EventType.REMOVE, compInstance)
   }
 
@@ -89,7 +88,8 @@ class VueDynamicComponent implements PluginObject<Component> {
             // eslint-disable-next-line @typescript-eslint/no-use-before-define
             this.deleteDynamicComp(componentInstance)
           }
-          const componentInstance = this.createDynamicComp(this.components[key], {
+          const instance = this.components[key]
+          const componentInstance = this.createDynamicComp(instance, {
             attrs,
             on: {
               'on-confirm': data => {

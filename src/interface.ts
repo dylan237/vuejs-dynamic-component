@@ -1,16 +1,24 @@
 import _Vue from 'vue'
 
-export default _Vue
-
-type PluginFunction<T> = (Vue: typeof _Vue, components?: T) => void
-
-export interface PluginObject<T> {
-  install: PluginFunction<T>
+export type VueType = typeof _Vue
+export type PluginFunction<U> = (Vue: VueType, options?: U) => void
+export interface ComponentConfig {
+  attrs: any
+  on: any
   [key: string]: any
+}
+export interface PluginObject<T, U> {
+  // V: VueType
+  components: T
+  install: PluginFunction<U>
+  // containerInit: (V: VueType) => void
+  // createDynamicComp: (component: VueType, config: ComponentConfig) => VueType
+  // deleteDynamicComp: (compInstance: VueType) => void
+  // childComponentsRegister: () => void
 }
 
 export interface Component {
-  [key: string]: typeof _Vue
+  [key: string]: VueType
 }
 
 export enum EventType {
