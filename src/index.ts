@@ -1,6 +1,8 @@
 import { VueType, PluginObject, Component, ComponentConfig, EventType } from './interface'
 
 class VueDynamicComponent implements PluginObject<Component, any> {
+  private static instance: PluginObject<Component, any>
+
   private V: VueType
 
   components: Component
@@ -8,6 +10,13 @@ class VueDynamicComponent implements PluginObject<Component, any> {
   constructor(components: Component) {
     this.V = null
     this.components = components
+  }
+
+  public static init(components: Component): PluginObject<Component, any> {
+    if (!VueDynamicComponent.instance) {
+      VueDynamicComponent.instance = new VueDynamicComponent(components)
+    }
+    return VueDynamicComponent.instance
   }
 
   public install(Vue: VueType): void {
@@ -26,14 +35,14 @@ class VueDynamicComponent implements PluginObject<Component, any> {
         }
       },
       created() {
-        V.prototype.$bus.$on(EventType.APPEND, (compInstance: VueType, config: ComponentConfig) => {
+        V.prototype.$bus.$on(EventType.APPEND, (componentConstructor: VueType, config: ComponentConfig) => {
           this.childComp.push({
-            compInstance,
+            componentConstructor,
             ...config,
           })
         })
-        V.prototype.$bus.$on(EventType.REMOVE, (compInstance: VueType) => {
-          this.childComp = this.childComp.filter(child => child.compInstance !== compInstance)
+        V.prototype.$bus.$on(EventType.REMOVE, (componentConstructor: VueType) => {
+          this.childComp = this.childComp.filter(child => child.componentConstructor !== componentConstructor)
         })
       },
       render(h) {
@@ -44,7 +53,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
               id: 'dynamic-container',
             },
           },
-          this.childComp.map(({ compInstance, attrs, callbacks, slot, unmount, ...args }) => {
+          this.childComp.map(({ componentConstructor, attrs, callbacks, slot, unmount, ...args }) => {
             const customEvents = Object.keys(callbacks).reduce(
               (acc, key) => ({
                 ...acc,
@@ -54,7 +63,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
               }),
               {}
             )
-            return h(compInstance, {
+            return h(componentConstructor, {
               attrs,
               props: attrs,
               on: {
@@ -89,17 +98,17 @@ class VueDynamicComponent implements PluginObject<Component, any> {
   }
 
   private createDynamicComp(componentData: VueType, config: ComponentConfig): void {
-    const compInstance: VueType = this.V.extend(componentData)
+    const componentConstructor: VueType = this.V.extend(componentData)
 
-    const unmount = () => this.deleteDynamicComp(compInstance)
-    this.V.prototype.$bus.$emit(EventType.APPEND, compInstance, {
+    const unmount = () => this.deleteDynamicComp(componentConstructor)
+    this.V.prototype.$bus.$emit(EventType.APPEND, componentConstructor, {
       ...config,
       unmount,
     })
   }
 
-  private deleteDynamicComp(compInstance: VueType): void {
-    this.V.prototype.$bus.$emit(EventType.REMOVE, compInstance)
+  private deleteDynamicComp(componentConstructor: VueType): void {
+    this.V.prototype.$bus.$emit(EventType.REMOVE, componentConstructor)
   }
 
   private componentsRegister(): void {

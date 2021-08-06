@@ -4,7 +4,7 @@ import App from './App.vue'
 import VueDynamicComponent from "../../dist/index";
 // import VueDynamicComponent from "vuejs-dynamic-component";
 import components from './config'
-Vue.use(new VueDynamicComponent(components))
+Vue.use(VueDynamicComponent.init(components))
 
 Vue.config.productionTip = false
 
