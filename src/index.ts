@@ -58,6 +58,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
               attrs,
               props: attrs,
               on: {
+                'on-unmount': unmount,
                 ...customEvents,
                 ...this.$listeners,
               },
@@ -67,6 +68,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
                     ? h(slot, {
                         attrs: props,
                         on: {
+                          'on-unmount': unmount,
                           ...customEvents,
                           ...this.$listeners,
                         },

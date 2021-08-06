@@ -27,6 +27,9 @@ export default {
     },
     onCancel() {
       this.$emit("on-cancel");
+    },
+    onUnmount() {
+      this.$emit("on-unmount")
     }
   },
   render(h) {
@@ -38,6 +41,12 @@ export default {
           "div", 
           { class: "popup" }, 
           [
+            h("div", {
+              class: 'cancel-button',
+              on: {
+                click: this.onUnmount
+              }
+            }, 'X'),
             h("h1", this.title),
             this.$scopedSlots.default(this.$attrs) || h("p", this.content),
             h(
@@ -84,5 +93,18 @@ export default {
   height: 300px;
   background: #f27777;
   z-index: 9999999;
+}
+.cancel-button {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  background-color: #fff;
 }
 </style>

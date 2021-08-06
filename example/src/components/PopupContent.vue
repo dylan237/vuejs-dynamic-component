@@ -2,9 +2,6 @@
   <div>
     <hr />
     <p @click="$emit('on-slot-event', slotData)">slot</p>
-    props from popup：
-    <br />
-    {{ $attrs }}
     <hr />
   </div>
 </template>
