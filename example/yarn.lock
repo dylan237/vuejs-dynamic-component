@@ -8104,10 +8104,10 @@ vue@^2.6.11, vue@^2.6.12:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
 
-vuejs-dynamic-component@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vuejs-dynamic-component/-/vuejs-dynamic-component-1.0.0.tgz#3e6121b312f97bc154d3aa6740e4f65bd3554254"
-  integrity sha512-YFMahCnWk6Tzdtp+dfB4Cbtyc7sIKbd2fBA4u1/uRNH6F9ZZ5jFIA6E93D++FnVwp8OidzzZsfrAaiVyXK374g==
+vuejs-dynamic-component@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vuejs-dynamic-component/-/vuejs-dynamic-component-2.0.0.tgz#b28822753186bbd38ae622e3cadc5b03b3800923"
+  integrity sha512-S1VIpKc7Hpv4cq6szhdlZW/BDnmuONl3zXBOJm77Ucew5tb1L+V8vd0cM5Pjz8GOYML0lO6keUMfUTBCf5r5PQ==
   dependencies:
     vue "^2.6.12"
 
