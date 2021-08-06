@@ -13,24 +13,33 @@ export default {
   name: "App",
   data() {
     return {
-      popupData: { title: "title here", content: "content here" },
+      popupData: { 
+        title: "title text", 
+        content: "content text",
+        confirmText: 'confirm',
+        cancelText: 'cancel'
+      },
     };
   },
   methods: {
     showPopup() {
       this.$popup({
         attrs: this.popupData,
-        contentSlot: [PopupContent],
-      })
-      .then(({ confirm, data, unmount }) => {
-        if (confirm) {
-          console.log("on confirm");
-          console.log("data----", data);
-        } else {
-          console.log("on cancel");
+        slot: PopupContent,
+        callbacks: {
+          'on-confirm': ({ unmount, data }) => {
+            console.log('on-confirm---', data)
+            unmount()
+          },
+          'on-cancel': ({ unmount }) => {
+            unmount()
+          },
+          'on-slot-event': ({ unmount, data }) => {
+            console.log('slot event----', data)
+            unmount()
+          }
         }
-        unmount();
-      });
+      })
     },
   },
 };

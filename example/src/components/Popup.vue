@@ -20,38 +20,48 @@ export default {
       childData: "childData",
     };
   },
-  props: ["title", "content"],
+  props: ["title", "content", "confirmText", "cancelText"],
+  methods: {
+    onConfirm() {
+      this.$emit("on-confirm", this.childData);
+    },
+    onCancel() {
+      this.$emit("on-cancel");
+    }
+  },
   render(h) {
-    console.log("this.$scopedSlots---", this.$scopedSlots);
-
-    return h("div", { class: "mask" }, [
-      h("div", { class: "popup" }, [
-        h("h1", this.title),
-        this.$scopedSlots.default(this.$attrs) || h("p", this.content),
+    return h(
+      "div", 
+      { class: "mask" }, 
+      [
         h(
-          "button",
-          {
-            on: {
-              click: () => {
-                this.$emit("on-confirm", this.childData);
+          "div", 
+          { class: "popup" }, 
+          [
+            h("h1", this.title),
+            this.$scopedSlots.default(this.$attrs) || h("p", this.content),
+            h(
+              "button",
+              {
+                on: {
+                  click: this.onConfirm
+                },
               },
-            },
-          },
-          "confrim"
-        ),
-        h(
-          "button",
-          {
-            on: {
-              click: () => {
-                this.$emit("on-cancel");
+              this.confirmText
+            ),
+            h(
+              "button",
+              {
+                on: {
+                  click: this.onCancel
+                },
               },
-            },
-          },
-          "cancel"
+              this.cancelText
+            ),
+          ]
         ),
-      ]),
-    ]);
+      ]
+    );
   },
 };
 </script>

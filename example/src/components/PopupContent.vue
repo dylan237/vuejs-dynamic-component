@@ -1,7 +1,7 @@
 <template>
   <div>
     <hr />
-    <p @click="$emit('slot-event', $attrs)">slot</p>
+    <p @click="$emit('on-slot-event', slotData)">slot</p>
     props from popup：
     <br />
     {{ $attrs }}
@@ -10,7 +10,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      text: 'slotData'
+    }
+  },
+  computed: {
+    slotData() {
+      return {
+        slotData: this.text,
+        attr: this.$attrs
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>

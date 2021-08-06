@@ -14,7 +14,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
     this.V = Vue
     this.V.prototype.$bus = new Vue()
     this.containerInit(this.V)
-    this.childComponentsRegister()
+    this.componentsRegister()
   }
 
   private containerInit(V: VueType): void {
@@ -26,15 +26,13 @@ class VueDynamicComponent implements PluginObject<Component, any> {
         }
       },
       created() {
-        V.prototype.$bus.$on(EventType.APPEND, (compInstance, { attrs, on, ...args }) => {
+        V.prototype.$bus.$on(EventType.APPEND, (compInstance: VueType, config: ComponentConfig) => {
           this.childComp.push({
             compInstance,
-            attrs,
-            on,
-            ...args,
+            ...config,
           })
         })
-        V.prototype.$bus.$on(EventType.REMOVE, compInstance => {
+        V.prototype.$bus.$on(EventType.REMOVE, (compInstance: VueType) => {
           this.childComp = this.childComp.filter(child => child.compInstance !== compInstance)
         })
       },
@@ -43,15 +41,39 @@ class VueDynamicComponent implements PluginObject<Component, any> {
           'div',
           {
             attrs: {
-              class: 'dynamic-container',
+              id: 'dynamic-container',
             },
           },
-          this.childComp.map(({ compInstance, attrs, on, scopedSlots, ...args }) => {
+          this.childComp.map(({ compInstance, attrs, callbacks, slot, unmount, ...args }) => {
+            const customEvents = Object.keys(callbacks).reduce(
+              (acc, key) => ({
+                ...acc,
+                [key]: data => {
+                  callbacks[key]({ unmount, data })
+                },
+              }),
+              {}
+            )
             return h(compInstance, {
               attrs,
               props: attrs,
-              on,
-              scopedSlots: scopedSlots(h),
+              on: {
+                ...customEvents,
+                ...this.$listeners,
+              },
+              scopedSlots: {
+                default(props) {
+                  return slot
+                    ? h(slot, {
+                        attrs: props,
+                        on: {
+                          ...customEvents,
+                          ...this.$listeners,
+                        },
+                      })
+                    : null
+                },
+              },
               ...args,
             })
           })
@@ -60,77 +82,29 @@ class VueDynamicComponent implements PluginObject<Component, any> {
     }
 
     const ContainerComp = this.V.extend(container)
-    const instance = new ContainerComp({
-      el: document.createElement('div'),
-    })
+    const instance = new ContainerComp({ el: document.createElement('div') })
     document.body.appendChild(instance.$el)
   }
 
-  private createDynamicComp(component: VueType, { attrs, on, ...args }: ComponentConfig): VueType {
-    const compInstance = this.V.extend(component)
+  private createDynamicComp(componentData: VueType, config: ComponentConfig): void {
+    const compInstance: VueType = this.V.extend(componentData)
+
+    const unmount = () => this.deleteDynamicComp(compInstance)
     this.V.prototype.$bus.$emit(EventType.APPEND, compInstance, {
-      attrs,
-      on,
-      ...args,
+      ...config,
+      unmount,
     })
-    return compInstance
   }
 
-  private deleteDynamicComp(compInstance: VueType) {
+  private deleteDynamicComp(compInstance: VueType): void {
     this.V.prototype.$bus.$emit(EventType.REMOVE, compInstance)
   }
 
-  private childComponentsRegister() {
+  private componentsRegister(): void {
     Object.keys(this.components).forEach(key => {
-      this.V.prototype[key] = ({ attrs, contentSlot, ...args }) => {
-        return new Promise(resolve => {
-          const unmount = () => {
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define
-            this.deleteDynamicComp(componentInstance)
-          }
-          const instance = this.components[key]
-          const componentInstance = this.createDynamicComp(instance, {
-            attrs,
-            on: {
-              'on-confirm': data => {
-                resolve({
-                  confirm: true,
-                  data,
-                  unmount,
-                })
-              },
-              'on-cancel': () => {
-                resolve({
-                  cancel: true,
-                  unmount,
-                })
-              },
-            },
-            // scopedSlots 寫成函數，因為需將 renderElement 當作 callback 傳進來
-            scopedSlots(h) {
-              return {
-                default(props) {
-                  const hasSlot = contentSlot?.[0]
-                  return hasSlot
-                    ? h(contentSlot[0], {
-                        attrs: props,
-                        on: {
-                          'slot-event': data => {
-                            console.log(data)
-                            resolve({
-                              slotEvent: true,
-                              unmount,
-                            })
-                          },
-                        },
-                      })
-                    : null
-                },
-              }
-            },
-            ...args,
-          })
-        })
+      this.V.prototype[key] = (config: ComponentConfig) => {
+        const componentData: VueType = this.components[key]
+        this.createDynamicComp(componentData, config)
       }
     })
   }

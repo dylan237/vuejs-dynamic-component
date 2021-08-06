@@ -4,17 +4,13 @@ export type VueType = typeof _Vue
 export type PluginFunction<U> = (Vue: VueType, options?: U) => void
 export interface ComponentConfig {
   attrs: any
-  on: any
+  callbacks: any
+  slot: VueType
   [key: string]: any
 }
 export interface PluginObject<T, U> {
-  // V: VueType
   components: T
   install: PluginFunction<U>
-  // containerInit: (V: VueType) => void
-  // createDynamicComp: (component: VueType, config: ComponentConfig) => VueType
-  // deleteDynamicComp: (compInstance: VueType) => void
-  // childComponentsRegister: () => void
 }
 
 export interface Component {
