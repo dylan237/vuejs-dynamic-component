@@ -1,6 +1,6 @@
 {
   "name": "vuejs-dynamic-component",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Make components dynamically in Vue, It is suitable for encapsulating your own non-ermanent components such as dialog and toast.",
   "repository": {
     "type": "git",

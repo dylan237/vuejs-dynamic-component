@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.0.0...v3.0.1) (2021-08-06)
+
+### Features
+
+- 預設卸載組件事件 ([fa4bd18](https://github.com/dylan237/vuejs-dynamic-component/commit/fa4bd1862b094e327da5b83789cdc8d790f04684))
+
 # [3.0.0](https://github.com/dylan237/vuejs-dynamic-component/compare/v2.0.0...v3.0.0) (2021-08-06)
 
 # [2.0.0](https://github.com/dylan237/vuejs-dynamic-component/compare/v1.0.7...v2.0.0) (2021-08-06)
