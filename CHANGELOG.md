@@ -1,3 +1,7 @@
+## [3.2.3](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.2.1...v3.2.3) (2021-08-25)
+
+
+
 ## [3.2.2](https://github.com/dylan237/vuejs-dynamic-component/compare/v0.1.1...v3.2.2) (2021-08-25)
 
 
