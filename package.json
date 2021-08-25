@@ -1,20 +1,16 @@
 {
   "name": "vuejs-dynamic-component",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "Make components dynamically in Vue, It is suitable for encapsulating your own non-ermanent components such as dialog and toast.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dylan237/vuejs-dynamic-component.git"
   },
   "source": "src/index.ts",
-  "main": "dist/index.umd.js",
-  "module": "dist/index.modern.js",
+  "main": "dist/index.js",
+  "exports": "./dist/index.modern.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.modern.js",
-    "./unpkg": "./dist/index.umd.js",
-    "./normal": "./dist/index.js"
-  },
   "scripts": {
     "dev": "microbundle watch",
     "build": "microbundle",
@@ -40,7 +36,8 @@
   "author": "dylan237 <dylan.liu237@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vuejs-dynamic-component": "^3.2.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
