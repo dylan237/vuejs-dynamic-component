@@ -1,3 +1,12 @@
+## [3.2.9](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.2.8...v3.2.9) (2021-08-25)
+
+
+### Bug Fixes
+
+* 「this」in scopedslot function ([05bc566](https://github.com/dylan237/vuejs-dynamic-component/commit/05bc5666a3e30e4b3ccf37cb3d4be047758bdad1))
+
+
+
 ## [3.2.8](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.2.7...v3.2.8) (2021-08-25)
 
 
