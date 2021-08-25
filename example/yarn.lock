@@ -8109,10 +8109,10 @@ vue@^2.6.12:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
-vuejs-dynamic-component@^3.2.5, vuejs-dynamic-component@^3.2.7:
-  version "3.2.7"
-  resolved "https://registry.yarnpkg.com/vuejs-dynamic-component/-/vuejs-dynamic-component-3.2.7.tgz#f2740c70403814b37fbf89b960b815d541a59a84"
-  integrity sha512-N+5EU+j/3rdmz4q+6pzQ4SmRaYGwTf/h5WgX/bLfdVUNYeUrUAyu73HGtJ7+BQKwVkHvQIUKPUzBRUA9BsEPkg==
+vuejs-dynamic-component@^3.2.5, vuejs-dynamic-component@^3.2.8:
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/vuejs-dynamic-component/-/vuejs-dynamic-component-3.2.8.tgz#bec0b5f4356c721c71064581e58c0750001f8a61"
+  integrity sha512-RWuEucnmAu1PSMR36hLkuUABXb+lTlzw3lZaegp+bt/KVLr3+VbJ7suQX5JB60ITMVPlJ6sou9RcVWxPQb62BQ==
   dependencies:
     vue "^2.6.12"
     vuejs-dynamic-component "^3.2.5"

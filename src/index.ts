@@ -27,6 +27,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
   }
 
   private containerInit(V: VueType): void {
+    let self
     const container = {
       name: 'dynamic-container',
       data() {
@@ -35,6 +36,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
         }
       },
       created() {
+        self = this
         V.prototype.$bus.$on(EventType.APPEND, (componentConstructor: VueType, config: ComponentConfig) => {
           this.childComp.push({
             componentConstructor,
@@ -69,17 +71,17 @@ class VueDynamicComponent implements PluginObject<Component, any> {
               on: {
                 'on-unmount': unmount,
                 ...customEvents,
-                ...this.$listeners,
+                ...self.$listeners,
               },
               scopedSlots: {
-                default: props => {
+                default(props) {
                   return slot
                     ? h(slot, {
                         attrs: props,
                         on: {
                           'on-unmount': unmount,
                           ...customEvents,
-                          ...this.$listeners,
+                          ...self.$listeners,
                         },
                       })
                     : null
