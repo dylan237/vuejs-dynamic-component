@@ -8109,12 +8109,13 @@ vue@^2.6.12:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
-vuejs-dynamic-component@^3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/vuejs-dynamic-component/-/vuejs-dynamic-component-3.2.2.tgz#2e7eac977138b4812cf1709d3c8a0ff92d0a6921"
-  integrity sha512-3G0syW4CA4/hR/7bbnbRTmEit10YwjkkZ51oyrMA5/9lEMa4CPiFb6iFUIWNxHhOQQ1P5FQ5YKmiFf3pLuAG5Q==
+vuejs-dynamic-component@^3.2.5, vuejs-dynamic-component@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/vuejs-dynamic-component/-/vuejs-dynamic-component-3.2.7.tgz#f2740c70403814b37fbf89b960b815d541a59a84"
+  integrity sha512-N+5EU+j/3rdmz4q+6pzQ4SmRaYGwTf/h5WgX/bLfdVUNYeUrUAyu73HGtJ7+BQKwVkHvQIUKPUzBRUA9BsEPkg==
   dependencies:
     vue "^2.6.12"
+    vuejs-dynamic-component "^3.2.5"
 
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"

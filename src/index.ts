@@ -72,7 +72,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
                 ...this.$listeners,
               },
               scopedSlots: {
-                default(props) {
+                default: props => {
                   return slot
                     ? h(slot, {
                         attrs: props,
