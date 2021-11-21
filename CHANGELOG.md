@@ -1,3 +1,12 @@
+## [3.2.10](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.2.9...v3.2.10) (2021-11-21)
+
+
+### Bug Fixes
+
+* avoid overwriting the global $bus ([4e39a60](https://github.com/dylan237/vuejs-dynamic-component/commit/4e39a60f72baf80977d715e92a7c64961892092d))
+
+
+
 ## [3.2.9](https://github.com/dylan237/vuejs-dynamic-component/compare/v3.2.8...v3.2.9) (2021-08-25)
 
 
