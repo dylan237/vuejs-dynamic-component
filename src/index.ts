@@ -21,7 +21,7 @@ class VueDynamicComponent implements PluginObject<Component, any> {
 
   public install(Vue: VueType): void {
     this.V = Vue
-    this.V.prototype.$bus = new Vue()
+    this.V.prototype.vdc.$bus = new Vue()
     this.containerInit(this.V)
     this.componentsRegister()
   }
@@ -37,13 +37,13 @@ class VueDynamicComponent implements PluginObject<Component, any> {
       },
       created() {
         self = this
-        V.prototype.$bus.$on(EventType.APPEND, (componentConstructor: VueType, config: ComponentConfig) => {
+        V.prototype.vdc.$bus.$on(EventType.APPEND, (componentConstructor: VueType, config: ComponentConfig) => {
           this.childComp.push({
             componentConstructor,
             ...config,
           })
         })
-        V.prototype.$bus.$on(EventType.REMOVE, (componentConstructor: VueType) => {
+        V.prototype.vdc.$bus.$on(EventType.REMOVE, (componentConstructor: VueType) => {
           this.childComp = this.childComp.filter(child => child.componentConstructor !== componentConstructor)
         })
       },
@@ -103,14 +103,14 @@ class VueDynamicComponent implements PluginObject<Component, any> {
     const componentConstructor: VueType = this.V.extend(componentData)
 
     const unmount = () => this.deleteDynamicComp(componentConstructor)
-    this.V.prototype.$bus.$emit(EventType.APPEND, componentConstructor, {
+    this.V.prototype.vdc.$bus.$emit(EventType.APPEND, componentConstructor, {
       ...config,
       unmount,
     })
   }
 
   private deleteDynamicComp(componentConstructor: VueType): void {
-    this.V.prototype.$bus.$emit(EventType.REMOVE, componentConstructor)
+    this.V.prototype.vdc.$bus.$emit(EventType.REMOVE, componentConstructor)
   }
 
   private componentsRegister(): void {
